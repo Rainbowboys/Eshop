@@ -30,7 +30,7 @@ function showIndex(){
 		<table class="table table-striped">
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath }/goods/list.do?id=0">Home</a></li>
-				<li><a href="${pageContext.request.contextPath }/goods/list.do?id=${productTypeBean.parentBean.parentId}">上一级${productTypeBean.parentBean.id}</a></li>
+				<li><a href="${pageContext.request.contextPath }/goods/list.do?id=${productTypeBean.parentBean.parentId}">上一级</a></li>
 				<li class="active">${productTypeBean.name}</li>
 			</ol>
 			<c:forEach items="${productTypeBean.childBeans }" var="item" varStatus="status">

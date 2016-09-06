@@ -148,7 +148,7 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div class="menuList">
-				<div> <a href="#">添加商品属性</a></div>
+				<div><a href="${pageContext.request.contextPath }/property/toadd.do" target="mainAction">添加商品属性</a></div>
 				<div> <a href="#">添加商品属性选项</a></div>
 				<div> <a href="#">查看商品属性</a></div>
 			</div>

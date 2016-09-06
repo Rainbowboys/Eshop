@@ -23,7 +23,8 @@
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver">
 		</property>
-		<property name="url" value="jdbc:mysql://localhost:3306/eshop?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/eshop?useUnicode=true&amp;characterEncoding=UTF-8"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
 		<property name="maxActive" value="100"></property>
@@ -45,8 +46,13 @@
 	<bean id="ProductTypeDao" class="com.test.DaoIMP.ProductTypeDaoImp">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
+	<bean id="ProductPropertyDao" class="com.test.DaoIMP.ProductPropertyDaoImp">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 	<!-- dao注入 -->
 	<bean id="AdminBean" class="com.test.Model.AdminBean"></bean>
+	<bean id="ProductPropertyBean" class="com.test.Model.ProductPropertyBean"></bean>
+	<bean id="ProductOptionBean" class="com.test.Model.ProductOptionBean"></bean>
 	<bean id="ProductTypeBean" class="com.test.Model.ProductTypeBean"
 		scope="prototype"></bean>
 </beans>  
