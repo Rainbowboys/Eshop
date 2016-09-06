@@ -45,8 +45,7 @@ public class ProductPropertyController {
 
 	@RequestMapping("/add.do")
 	public String add(String name, String[] productTypeId, String sort,
-			Model model) {
-		// name,product_type_id,sort,create_date
+			String id, Model model) {
 		int pid = 0;
 		for (String pids : productTypeId) {
 			pid = Math.max(pid, StringUtil.StringToInt(pids));
@@ -55,11 +54,24 @@ public class ProductPropertyController {
 		productPropertyBean.setProductTypeId(pid);
 		productPropertyBean.setName(name);
 		productPropertyBean.setSort(StringUtil.StringToInt(sort));
-		boolean flag = productPropertyDao.add(productPropertyBean);
-		if (flag) {
-			model.addAttribute("status", "1");
+		boolean flag = false;
+		// 当id不为空时 表示更新
+		if (!id.equals("") && id != null) {
+			productPropertyBean.setId(StringUtil.StringToInt(id));
+			flag = productPropertyDao.update(productPropertyBean);
+			if (flag) {
+				model.addAttribute("status", "1");
+			}
+			return "redirect:tolist.do";
+
+		} else {
+			flag = productPropertyDao.add(productPropertyBean);
+			if (flag) {
+				model.addAttribute("status", "1");
+			}
+			return "redirect:toadd.do";
 		}
-		return "redirect:toadd.do";
+
 	}
 
 	@RequestMapping("/getType.do")
@@ -71,7 +83,29 @@ public class ProductPropertyController {
 		out.print(JSON.toJSONString(typeList));
 		out.flush();
 		out.close();
+	}
 
+	@RequestMapping("/tolist.do")
+	public String tolist(HttpServletRequest req) {
+
+		List<ProductTypeBean> typeList = productTypeDao.getTypeList(0);
+		req.setAttribute("productTypeList", typeList);
+		return "admin/property/list";
+	}
+
+	@RequestMapping("/toupdate.do")
+	public String toupdate(String id, HttpServletRequest req, Model model) {
+		String sta = req.getParameter("status");
+		System.out.println(id);
+		ProductPropertyBean productPropertyBean = productPropertyDao
+				.getPropertyBeanById(StringUtil.StringToInt(id));
+		req.setAttribute("productPropertyBean", productPropertyBean);
+		List<ProductTypeBean> typeList = productTypeDao.getTypeList(0);
+		req.setAttribute("productTypeList", typeList);
+		if (sta != null && "1".equals(sta)) {
+			model.addAttribute("status", "1");
+		}
+		return "admin/property/add";
 	}
 
 }

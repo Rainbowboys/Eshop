@@ -49,6 +49,9 @@
 	<bean id="ProductPropertyDao" class="com.test.DaoIMP.ProductPropertyDaoImp">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
+	<bean id="ProductOptionDao" class="com.test.DaoIMP.ProducyOptionDaoImp">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 	<!-- dao注入 -->
 	<bean id="AdminBean" class="com.test.Model.AdminBean"></bean>
 	<bean id="ProductPropertyBean" class="com.test.Model.ProductPropertyBean"></bean>
