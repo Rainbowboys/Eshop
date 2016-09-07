@@ -39,15 +39,27 @@ public class ProductOptionController {
 	}
 
 	@RequestMapping("/add.do")
-	public String Add(String name, String PropertyId, String sort, Model model) {
+	public String Add(String name, String PropertyId, String sort, Model model,
+			String id) {
 		productOptionBean.setName(name);
 		productOptionBean.setPropertyId(StringUtil.StringToInt(PropertyId));
 		productOptionBean.setSort(StringUtil.StringToInt(sort));
-		boolean flag = productOptionDao.add(productOptionBean);
-		if (flag) {
-			model.addAttribute("status", "1");
+
+		boolean flag = false;
+		if (!id.equals("") && id != null) {
+			productOptionBean.setId(StringUtil.StringToInt(id));
+			flag = productOptionDao.update(productOptionBean);
+			if (flag) {
+				model.addAttribute("status", "1");
+			}
+			return "redirect:tolist.do";
+		} else {
+			flag = productOptionDao.add(productOptionBean);
+			if (flag) {
+				model.addAttribute("status", "1");
+			}
+			return "redirect:toadd.do";
 		}
-		return "redirect:toadd.do";
 	}
 
 	@RequestMapping("/getProperty.do")
@@ -82,6 +94,29 @@ public class ProductOptionController {
 		pW.write(JSON.toJSONString(list));
 		pW.flush();
 		pW.close();
+	}
+
+	@RequestMapping("/toupdate.do")
+	public String toupdate(String id, Model model, HttpServletRequest req) {
+
+		String sta = req.getParameter("status");
+		ProductOptionBean productOptionBean = productOptionDao
+				.getOptionByID(StringUtil.StringToInt(id));
+		req.setAttribute("productOptionBean", productOptionBean);
+		List<ProductTypeBean> typeList = productTypeDao.getTypeList(0);
+		req.setAttribute("productTypeList", typeList);
+		if (sta != null && "1".equals(sta)) {
+			model.addAttribute("status", "1");
+		}
+		return "admin/option/add";
+	}
+
+	@RequestMapping("/delete.do")
+	public String delete(String id, Model model) {
+		if (productOptionDao.delete(StringUtil.StringToInt(id))) {
+			model.addAttribute("status", "1");
+		}
+		return "redirect:tolist.do";
 	}
 
 }

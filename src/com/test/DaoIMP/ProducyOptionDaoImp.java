@@ -17,6 +17,7 @@ import com.test.util.StringUtil;
 public class ProducyOptionDaoImp implements ProductOptionDao {
 
 	JdbcTemplate jdbcTemplate;
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -29,7 +30,6 @@ public class ProducyOptionDaoImp implements ProductOptionDao {
 	@Override
 	public boolean add(ProductOptionBean productOptionBean) {
 		String sql = "insert into product_type_property_option(name,product_type_property_id,sort,create_date) values(?,?,?,?)";
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String create_data = df.format(new Date());
 
 		boolean flag = false;
@@ -89,12 +89,70 @@ public class ProducyOptionDaoImp implements ProductOptionDao {
 			productOptionBean.setSort(StringUtil.StringToInt(optionMap.get(
 					"sort").toString()));
 			productOptionBean.setPropertyId(propertyId);
+			productOptionBean.setId(StringUtil.StringToInt(optionMap.get("id")
+					.toString()));
 			productOptionBean.setCreateDate(optionMap.get("create_date")
 					.toString());
 			list.add(productOptionBean);
 
 		}
-
 		return list;
+	}
+
+	@Override
+	public boolean update(ProductOptionBean productOptionBean) {
+		String sql = "update product_type_property_option set name=?,product_type_property_id=?,sort=?,create_date=? where id =?";
+		String create_data = df.format(new Date());
+		int a = 0;
+		a = jdbcTemplate.update(
+				sql,
+				new Object[] { productOptionBean.getName(),
+						productOptionBean.getPropertyId(),
+						productOptionBean.getSort(), create_data,
+						productOptionBean.getId() });
+		if (a > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean delete(int optionId) {
+
+		String sql = "delete from product_type_property_option where id="
+				+ optionId + " ";
+		int a = 0;
+		a = jdbcTemplate.update(sql);
+		if (a > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@SuppressWarnings("all")
+	public ProductOptionBean getOptionByID(int id) {
+		String sql = "select * from  product_type_property_option where id="
+				+ id + "";
+
+		List list = jdbcTemplate.queryForList(sql);
+		ProductOptionBean productOptionBean = null;
+		Iterator iterator = list.iterator();
+		while (iterator.hasNext()) {
+			Map optionMap = (Map) iterator.next();
+			productOptionBean = new ProductOptionBean();
+			productOptionBean.setId(id);
+			productOptionBean.setName(optionMap.get("name").toString());
+			productOptionBean.setSort(StringUtil.StringToInt(optionMap.get(
+					"sort").toString()));
+			productOptionBean.setPropertyId(StringUtil.StringToInt(optionMap
+					.get("product_type_property_id").toString()));
+			productOptionBean.setCreateDate(optionMap.get("create_date")
+					.toString());
+
+		}
+
+		return productOptionBean;
 	}
 }

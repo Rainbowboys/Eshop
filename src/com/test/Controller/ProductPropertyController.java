@@ -108,4 +108,14 @@ public class ProductPropertyController {
 		return "admin/property/add";
 	}
 
+	@RequestMapping("/delete.do")
+	public String delete(String id, HttpServletRequest req, Model model) {
+
+		int propertyId = StringUtil.StringToInt(id);
+		if (productPropertyDao.delete(propertyId)) {
+			model.addAttribute("status", "2");
+		}
+
+		return "redirect:tolist.do";
+	}
 }

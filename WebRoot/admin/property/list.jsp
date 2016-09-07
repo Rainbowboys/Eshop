@@ -75,7 +75,7 @@
 									content += "<td><a href='${pageContext.request.contextPath}/property/toupdate.do?id="
 											+ data[property].id
 											+ "'>修改</a></td>";
-									content += "<td><a href='productPropertyServlet?method=delete&id="
+									content += "<td><a href='${pageContext.request.contextPath}/property/delete.do?id="
 											+ data[property].id
 											+ "'>删除</a></td></tr>";
 								}
@@ -102,6 +102,7 @@
 		<table class="table table-striped" id="property0">
 		</table>
 		<div class="form-group col-md-12">${param.status==1?"<div class='alert alert-success' role='alert'>修改属性成功</div>":"" }
+		<div class="form-group col-md-12">${param.status==2?"<div class='alert alert-success' role='alert'>删除属性成功</div>":"" }
 		</div>
 	</div>
 </body>

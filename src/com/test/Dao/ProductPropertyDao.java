@@ -8,7 +8,7 @@ public interface ProductPropertyDao {
 
 	public boolean update(ProductPropertyBean productPropertyBean);
 
-	public boolean delete(ProductPropertyBean productPropertyBean);
+	public boolean delete(int propertyId);
 
 	public ProductPropertyBean getPropertyBeanById(int id);
 }

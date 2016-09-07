@@ -13,4 +13,10 @@ public interface ProductOptionDao {
 
 	public List<ProductOptionBean> getOptionByProperty(int propertyId);
 
+	public ProductOptionBean getOptionByID(int id);
+
+	public boolean update(ProductOptionBean productOptionBean);
+
+	public boolean delete(int optionId);
+
 }

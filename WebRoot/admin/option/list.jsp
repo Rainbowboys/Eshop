@@ -86,9 +86,9 @@
 											+ "</td>";
 									content += "<td>" + data[option].createDate
 											+ "</td>";
-									content += "<td><a href='productOptionServlet?method=update&id="
+									content += "<td><a href='${pageContext.request.contextPath}/option/toupdate.do?id="
 											+ data[option].id + "'>修改</a></td>";
-									content += "<td><a href='productOptionServlet?method=delete&id="
+									content += "<td><a href='${pageContext.request.contextPath}/option/delete.do?id="
 											+ data[option].id
 											+ "'>删除</a></td></tr>";
 								}

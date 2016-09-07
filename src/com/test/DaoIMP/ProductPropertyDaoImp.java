@@ -61,8 +61,15 @@ public class ProductPropertyDaoImp implements ProductPropertyDao {
 	}
 
 	@Override
-	public boolean delete(ProductPropertyBean productPropertyBean) {
-		// TODO Auto-generated method stub
+	public boolean delete(int propertyId) {
+
+		String sql = "delete from product_type_property where id=" + propertyId
+				+ " ";
+		int a = 0;
+		a = jdbcTemplate.update(sql);
+		if (a > 0) {
+			return true;
+		}
 		return false;
 	}
 
@@ -78,8 +85,10 @@ public class ProductPropertyDaoImp implements ProductPropertyDao {
 			Map properMap = (Map) iterator.next();
 			productPropertyBean.setId(id);
 			productPropertyBean.setName(properMap.get("name").toString());
-			productPropertyBean.setProductTypeId(StringUtil.StringToInt(properMap.get("product_type_id").toString()));
-			productPropertyBean.setSort(StringUtil.StringToInt(properMap.get("sort").toString()));
+			productPropertyBean.setProductTypeId(StringUtil
+					.StringToInt(properMap.get("product_type_id").toString()));
+			productPropertyBean.setSort(StringUtil.StringToInt(properMap.get(
+					"sort").toString()));
 		}
 
 		return productPropertyBean;
