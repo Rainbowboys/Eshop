@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,8 @@ public class AdminContrllor extends BaseController {
 	private HttpServletRequest request;
 	@Autowired
 	AdminDao adminDao;
+
+	
 
 	/**
 	 * 登录功能
@@ -169,7 +172,7 @@ public class AdminContrllor extends BaseController {
 			return "admin/listUsers";
 		}
 	}
-	
+
 	/**
 	 * 删除管理员
 	 * 
@@ -179,8 +182,8 @@ public class AdminContrllor extends BaseController {
 	 * @throws IOException
 	 */
 	@RequestMapping("delete.do")
-	private String  delete(String id,Model model)
-			throws ServletException, IOException {
+	private String delete(String id, Model model) throws ServletException,
+			IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		int ids = StringUtil.StringToInt(id);
@@ -188,7 +191,7 @@ public class AdminContrllor extends BaseController {
 			adminDao.delete(ids);
 			model.addAttribute("status", "3");
 			return "redirect:list.do";
-			
+
 		} else if (ids == 1) {
 			model.addAttribute("status", "1");
 			return "redirect:list.do";
@@ -197,6 +200,5 @@ public class AdminContrllor extends BaseController {
 			return "redirect:list.do";
 		}
 	}
-
 
 }

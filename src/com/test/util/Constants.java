@@ -1,5 +1,7 @@
 package com.test.util;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class Constants {
 	public static final String PROPERTY_BEAN = "propertyBean";
 	public static final String USER_BEAN = "userBean";

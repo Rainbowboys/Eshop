@@ -206,10 +206,13 @@ body {
 				</div>
 				<div class="menuList">
 					<div>
-						<a href="#">添加商品</a>
+						<a
+							href="${pageContext.request.contextPath }/admin/product/add.jsp"
+							target="mainAction">添加商品</a>
 					</div>
 					<div>
-						<a href="#">查询商品信息</a>
+						<a href="${pageContext.request.contextPath }/product/tolist.do"
+							target="mainAction">查询商品信息</a>
 					</div>
 				</div>
 			</div>
@@ -222,7 +225,8 @@ body {
 				</div>
 				<div class="menuList">
 					<div>
-						<a href="#">用户信息查询</a>
+						<a href="${pageContext.request.contextPath}/user/tolist.do"
+							target="mainAction">用户信息查询</a>
 					</div>
 					<div>
 						<a href="#">冻结账号</a>

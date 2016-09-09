@@ -7,8 +7,10 @@
            http://www.springframework.org/schema/context     
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+
 	<!-- 自动扫描bean，把作了注解的类转换为bean -->
-	<context:component-scan base-package="com.test.Controller" />
+	<context:component-scan base-package="
+	com.test.Controller " />
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
@@ -52,10 +54,32 @@
 	<bean id="ProductOptionDao" class="com.test.DaoIMP.ProducyOptionDaoImp">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
+	<bean id="ProductDao" class="com.test.DaoIMP.ProductDaoImp">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="UserDao" class="com.test.DaoIMP.UserDaoImp">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 	<!-- dao注入 -->
 	<bean id="AdminBean" class="com.test.Model.AdminBean"></bean>
 	<bean id="ProductPropertyBean" class="com.test.Model.ProductPropertyBean"></bean>
 	<bean id="ProductOptionBean" class="com.test.Model.ProductOptionBean"></bean>
 	<bean id="ProductTypeBean" class="com.test.Model.ProductTypeBean"
 		scope="prototype"></bean>
+
+	<!-- 读取国际化配置文件 -->
+
+	<bean id="configProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:conf.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="properties" ref="configProperties" />
+	</bean>
+
 </beans>  
