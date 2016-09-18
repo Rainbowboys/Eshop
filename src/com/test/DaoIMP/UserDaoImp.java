@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -14,16 +16,8 @@ import com.test.util.DateUtil;
 import com.test.util.StringUtil;
 
 public class UserDaoImp implements UserDao {
-
+	@Resource
 	private JdbcTemplate jdbcTemplate;
-
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
 
 	@SuppressWarnings("all")
 	/**
@@ -71,6 +65,7 @@ public class UserDaoImp implements UserDao {
 		while (iterator.hasNext()) {
 			Map userMap = (Map) iterator.next();
 			userBean.setPassword(userMap.get("password").toString());
+			userBean.setUsername(userMap.get("username").toString());
 			userBean.setSalt(userMap.get("salt").toString());
 		}
 		if (userBean.getPassword() != null) {

@@ -29,10 +29,8 @@ import com.test.util.StringUtil;
 public class AdminContrllor extends BaseController {
 	@Autowired
 	private HttpServletRequest request;
-	@Autowired
+	@Autowired(required = false)
 	AdminDao adminDao;
-
-	
 
 	/**
 	 * 登录功能

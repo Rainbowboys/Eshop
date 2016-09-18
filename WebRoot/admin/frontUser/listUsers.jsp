@@ -18,6 +18,9 @@
 	type="text/javascript"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/bootstrap-3.3.5-dist/css/bootstrap.css" />
+	
+
+
 
 </head>
 <body>
@@ -31,7 +34,7 @@
 		<div class="row-fluid">
 			<div class="col-md-1 "></div>
 			<div class="col-md-10 ">
-				<table class="table table-striped">
+				<table class="table table-striped ">
 					<tr>
 						<td>id</td>
 						<td>img</td>

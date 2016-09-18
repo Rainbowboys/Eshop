@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSON;
 import com.test.Dao.UserDao;
 import com.test.Model.UserBean;
+import com.test.util.Constants;
 import com.test.util.DateUtil;
 import com.test.util.MD5;
 import com.test.util.StringUtil;
@@ -83,7 +86,8 @@ public class UserController {
 
 	@RequestMapping("/login.do")
 	@SuppressWarnings("all")
-	public String login(String account, String password, Model model) {
+	public String login(String account, String password, Model model,
+			HttpServletRequest req, HttpSession session) {
 
 		UserBean userBean = userDao.login(account);
 
@@ -96,7 +100,15 @@ public class UserController {
 			String md5pwd = MD5.GetMD5Code(MD5.GetMD5Code(password)
 					+ userBean.getSalt());
 			if (md5pwd.equals(userBean.getPassword())) {
-				return "redirect:../front/success.jsp";
+				session.setAttribute(Constants.SESSION_USER_BEAN, userBean);
+				Enumeration<String> enumer = session.getAttributeNames();
+				while (enumer.hasMoreElements()) {
+					String string = (String) enumer.nextElement();
+					System.out.println(session.getAttribute(string));
+					System.out.println(string);
+
+				}
+				return "redirect:../show/tolist.do";
 			} else {
 				// 用户名密码不匹配
 				model.addAttribute("status", "1");

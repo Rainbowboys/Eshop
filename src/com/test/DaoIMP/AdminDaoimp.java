@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.test.Dao.AdminDao;
@@ -12,16 +14,8 @@ import com.test.Model.AdminBean;
 import com.test.util.MD5;
 
 public class AdminDaoimp implements AdminDao {
-
+	@Resource
 	private JdbcTemplate jdbcTemplate;
-
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
 
 	/**
 	 * 检测登录

@@ -15,4 +15,14 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<name>type</name>
+		<tag-class>com.test.Tag.TypeTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>path</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

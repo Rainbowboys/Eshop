@@ -7,17 +7,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.jasper.tagplugins.jstl.core.If;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.test.Dao.ProductTypeDao;
 import com.test.Model.ProductTypeBean;
 
 public class ProductTypeDaoImp implements ProductTypeDao {
+	@Resource
 	private JdbcTemplate jdbcTemplate;
-	@Autowired
-	ProductTypeBean productTypeBean;
+	private ProductTypeBean productTypeBean;
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -38,6 +38,7 @@ public class ProductTypeDaoImp implements ProductTypeDao {
 		Iterator iterator = list.iterator();
 		while (iterator.hasNext()) {
 			Map beanMap = (Map) iterator.next();
+			productTypeBean = new ProductTypeBean();
 			int id = (Integer) beanMap.get("id");
 			String name = (String) beanMap.get("name");
 			productTypeBean.setId(id);
@@ -159,18 +160,18 @@ public class ProductTypeDaoImp implements ProductTypeDao {
 	public boolean delete(int id) {
 		// TODO Auto-generated method stub
 		boolean flag = true;
-		//删除子分类
-		List<ProductTypeBean> typelis=getTypeList(id);
+		// 删除子分类
+		List<ProductTypeBean> typelis = getTypeList(id);
 		for (ProductTypeBean productTypeBean : typelis) {
-			boolean f1=delete(productTypeBean.getId());
-			if(!f1){
-				flag=false;
+			boolean f1 = delete(productTypeBean.getId());
+			if (!f1) {
+				flag = false;
 			}
 		}
 		String sql = "delete from product_type where id='" + id + "'";
-		int a =jdbcTemplate.update(sql);
-		if (a>0) {
-			flag=true;
+		int a = jdbcTemplate.update(sql);
+		if (a > 0) {
+			flag = true;
 		}
 		return flag;
 	}

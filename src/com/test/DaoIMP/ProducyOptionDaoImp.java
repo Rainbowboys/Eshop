@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.test.Dao.ProductOptionDao;
@@ -15,17 +17,9 @@ import com.test.Model.ProductPropertyBean;
 import com.test.util.StringUtil;
 
 public class ProducyOptionDaoImp implements ProductOptionDao {
-
-	JdbcTemplate jdbcTemplate;
+	@Resource
+	private JdbcTemplate jdbcTemplate;
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
 
 	@Override
 	public boolean add(ProductOptionBean productOptionBean) {
